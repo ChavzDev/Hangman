@@ -1,4 +1,5 @@
 #Imports
+from ast import keyword
 import random
 
 #Functions
@@ -38,21 +39,53 @@ def getWords(dm):
     except ValueError as ve:
         print(ve)
 
+def guess():
+    try:
+        g = str(input('Input a letter to complete the word: ')).lower()
+        if g.isnumeric() or len(g) > 1:
+            raise ValueError()
+    except ValueError:
+        g = "error"
+    return g
+
+def displayHangman():
+    pass
 
 def run():
     dm = difficultyMode() - 1
     words = getWords(dm)
     word = random.choice(words);
+    keyWord = ["-" for x in range(0, len(word))]
+    string = "".join(keyWord)
     attemps = len(word) / 2
     won = False
-    print(word)
-    
-    #Main Function
-    while attemps > 0 or won != False:
-        pass
-    
-    #Display Hangman
 
+    print(string)
+    print(word)
+
+    #Main Function
+    while attemps > 0 and won != True:  
+        #Display Hangman and word    
+        inputed = guess()
+
+        if inputed in word:
+            for x in range(0, len(word)):
+                if inputed == word[x]:
+                    keyWord[x] = inputed 
+            string = "".join(keyWord)
+        else:
+            attemps -= 1
+            print("Inputed letter, is not in word")
+        
+        #Winner
+        if string == word:
+            print("Congratulations, you are not a hangman")
+            won = True 
+
+        print(string)
+        print(attemps)
+        print("\n")
+                
 #Entry Point
 if __name__ == "__main__":
     run()
