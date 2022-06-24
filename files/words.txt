@@ -2953,13 +2953,6 @@ ajango
 ajaqueca
 ajaquecarse
 ajaquefa
-ajar
-ajaraca
-ajaracado
-ajarafe
-ajardinamiento
-ajardinar
-ajaspajas
 aje
 ajea
 ajear
@@ -38340,10 +38333,6 @@ fomentar
 fomento
 fomes
 fon
-fona
-fonación
-fonador
-foncarralero
 fonda
 fondable
 fondac

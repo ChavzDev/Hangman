@@ -1,5 +1,4 @@
 #Imports
-from ast import keyword
 import random
 
 #Functions
@@ -48,8 +47,55 @@ def guess():
         g = "error"
     return g
 
-def displayHangman():
-    pass
+def displayHangman(a):
+    hangman = ['''
+   +---+
+       |
+       |
+       |
+      ===
+    ''', 
+    '''
+   +---+
+   O   |
+       |
+       |
+      ===''',
+    '''
+   +---+
+   O   |
+   |   |
+       |
+      ===''',
+    '''
+   +---+
+   O   |
+  /|   |
+       |
+      ===''',
+    '''
+   +---+
+   O   |
+  /|\  |
+       |
+      ===''',
+'''
+   +---+
+   O   |
+  /|\  |
+  /    |
+      ===
+''', 
+'''
+   +---+
+   O   |
+  /|\  |
+  / \  |
+      ===
+''']
+    hangman.reverse()
+    print(hangman[a])
+
 
 def run():
     dm = difficultyMode() - 1
@@ -57,15 +103,15 @@ def run():
     word = random.choice(words);
     keyWord = ["-" for x in range(0, len(word))]
     string = "".join(keyWord)
-    attemps = len(word) / 2
+    attemps = 6
     won = False
 
+    #Init game   
+    displayHangman(attemps) #Display Hangman and word
     print(string)
-    print(word)
 
     #Main Function
-    while attemps > 0 and won != True:  
-        #Display Hangman and word    
+    while attemps > 0 and won != True:
         inputed = guess()
 
         if inputed in word:
@@ -76,16 +122,19 @@ def run():
         else:
             attemps -= 1
             print("Inputed letter, is not in word")
+            print("\n")
         
         #Winner
         if string == word:
-            print("Congratulations, you are not a hangman")
+            print("Congratulations, you have won")
             won = True 
-
+        elif attemps < 1:
+            print("You are hanged")
+            print("The word you were looking for is: " + str(word))
+    
+        displayHangman(attemps)
         print(string)
-        print(attemps)
-        print("\n")
-                
+                        
 #Entry Point
 if __name__ == "__main__":
     run()
