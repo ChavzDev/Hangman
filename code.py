@@ -1,5 +1,6 @@
 #Imports
 import random
+import os
 
 #Functions
 def difficultyMode():
@@ -15,12 +16,13 @@ def difficultyMode():
         if dm < 1 or dm > 3:
             dm = -1
             raise ValueError()
+
+        os.system("clear")
         return dm
     except ValueError:
         print('The inputed number must be a number between 1 and 3')
 
 def getWords(dm):
-    words = []
     limits = [[0,6], [7, 12], [13, 24]]
 
     try:
@@ -28,10 +30,12 @@ def getWords(dm):
             raise ValueError("Value Error")
 
         with open("/home/codebars/code/Python/Hangman/files/words.txt", "r", encoding="utf-8" ) as wds:
-            for word in wds:
-                if len(word) > limits[dm][0] and len(word) < limits[dm][1]:
-                    words.append(word.rstrip())
-            return words #Returns Words
+            filteredWords = list(filter(lambda w: len(w) > limits[dm][0] and len(w) < limits[dm][1], wds))
+            maped = list(map(lambda x: x.rstrip(), filteredWords))
+                # for word in wds:            
+                #     # if len(word) > limits[dm][0] and len(word) < limits[dm][1]:
+                #     #     words.append(word.rstrip())
+            return maped #Returns Words
 
     except FileNotFoundError:
         print("File not found")
@@ -49,7 +53,7 @@ def guess():
 
 def displayHangman(a):
     hangman = ['''
-   +---+
+    +---+
        |
        |
        |
@@ -138,3 +142,4 @@ def run():
 #Entry Point
 if __name__ == "__main__":
     run()
+    
